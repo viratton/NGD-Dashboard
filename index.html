@@ -160,6 +160,41 @@ tr:hover td{background:var(--hover);cursor:pointer;}
     .kpi.kpi-green { border-top:3px solid #16a34a; }
     .kpi.kpi-green .kpi-value { color:#16a34a; }
 
+  
+    /* ANALYSIS TAB */
+    .an-section { background:#fff; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.08); padding:16px; margin-bottom:14px; }
+    .an-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+    .an-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .an-grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+    .exec-card { background:#f8fafc; border-radius:8px; padding:12px 14px; }
+    .exec-label { font-size:10px; color:#64748b; text-transform:uppercase; letter-spacing:.4px; }
+    .exec-val { font-size:20px; font-weight:700; color:var(--text); margin:2px 0; }
+    .exec-sub { font-size:10px; color:#64748b; }
+    .exec-badge { display:inline-block; padding:2px 7px; border-radius:10px; font-size:10px; font-weight:700; margin-left:6px; }
+    .badge-green { background:#dcfce7; color:#16a34a; }
+    .badge-red   { background:#fee2e2; color:#dc2626; }
+    .badge-yellow{ background:#fef9c3; color:#ca8a04; }
+    .risk-table  { width:100%; border-collapse:collapse; font-size:11px; }
+    .risk-table th { background:#f1f5f9; padding:7px 10px; text-align:left; font-size:10px; color:#64748b; text-transform:uppercase; position:sticky; top:0; }
+    .risk-table td { padding:6px 10px; border-bottom:1px solid #f1f5f9; }
+    .risk-table tr:hover td { background:#fafafa; }
+    .conc-bar { height:28px; background:#f1f5f9; border-radius:6px; overflow:hidden; margin:6px 0; position:relative; }
+    .conc-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:8px; font-size:11px; font-weight:700; color:#fff; white-space:nowrap; }
+    .yoy-item { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid #f1f5f9; font-size:11px; }
+    .yoy-name  { flex:1; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:8px; }
+    .yoy-val   { font-weight:700; white-space:nowrap; }
+    .ie-score-table { width:100%; border-collapse:collapse; font-size:11px; }
+    .ie-score-table th { background:#f1f5f9; padding:7px 10px; text-align:right; font-size:10px; color:#64748b; text-transform:uppercase; }
+    .ie-score-table th:first-child { text-align:left; }
+    .ie-score-table td { padding:6px 10px; border-bottom:1px solid #f1f5f9; text-align:right; }
+    .ie-score-table td:first-child { text-align:left; font-weight:600; }
+    .ie-score-table tr:hover td { background:#fafafa; }
+    .margin-rank-item { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid #f1f5f9; font-size:11px; }
+    .margin-rank-num { width:20px; text-align:center; color:#64748b; font-weight:700; }
+    .margin-rank-bar { flex:1; background:#f1f5f9; border-radius:4px; height:18px; overflow:hidden; }
+    .margin-rank-fill { height:100%; border-radius:4px; display:flex; align-items:center; padding-left:6px; font-size:10px; font-weight:700; color:#fff; }
+    .margin-rank-val { width:80px; text-align:right; font-weight:700; }
+
   </style>
 </head>
 <body>
@@ -184,6 +219,7 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   <button class="tab-btn" onclick="switchTab('ie')">📍 IE Area</button>
   <button class="tab-btn" onclick="switchTab('fuel')">⛽ Fuel Type</button>
   <button class="tab-btn" onclick="switchTab('price')">💰 Selling Price</button>
+  <button class="tab-btn" onclick="switchTab('analysis')">📊 Analysis</button>
 </div>
 
 <!-- TAB 1: CUSTOMERS -->
@@ -238,6 +274,8 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   <div class="kpi-bar">
     <div class="kpi blue"><div class="kpi-label">อุตสาหกรรม</div><div class="kpi-value" id="biz-count">—</div><div class="kpi-sub">types</div></div>
     <div class="kpi"><div class="kpi-label">Total Act May 26</div><div class="kpi-value" id="biz-total">—</div><div class="kpi-sub">MMBtu</div></div>
+    <div class="kpi"><div class="kpi-label">Total Bgt May 26</div><div class="kpi-value" id="biz-bgt-total">—</div><div class="kpi-sub">MMBtu</div></div>
+    <div class="kpi"><div class="kpi-label">vs Budget</div><div class="kpi-value" id="biz-vs-bgt">—</div><div class="kpi-diff" id="biz-vs-bgt-pct"></div></div>
     <div class="kpi green"><div class="kpi-label">Top Industry</div><div class="kpi-value" id="biz-top" style="font-size:12px">—</div><div class="kpi-sub" id="biz-top-pct"></div></div>
   </div>
   <div class="grid2">
@@ -438,6 +476,21 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   </div>
 </div>
 
+
+<div class="tab-content" id="tab-analysis">
+  <div id="an-exec"></div>
+  <div class="an-grid2" style="margin-bottom:14px">
+    <div id="an-risk"></div>
+    <div id="an-conc"></div>
+  </div>
+  <div class="an-grid2" style="margin-bottom:14px">
+    <div id="an-yoy-win"></div>
+    <div id="an-yoy-lose"></div>
+  </div>
+  <div id="an-ie"></div>
+  <div id="an-margin-rank"></div>
+</div>
+
 <!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
   <div class="modal">
@@ -593,21 +646,31 @@ function nextPage(){ const tp=Math.ceil(filtered.length/PAGE_SIZE); if(page<tp-1
 // ── TAB 2: BUSINESS ──
 function renderBusiness() {
   const base = getBase();
-  const map = {}, gmMap = {};
+  const map = {}, gmMap = {}, bgtMap = {};
   const custMap = {}; // top customer per industry
   base.forEach(c=>{
     const ind=c.industry.trim()||'Other';
     const v=c.act26.May||0;
+    const b=c.bgt26.May||0;
     map[ind]=(map[ind]||0)+v;
+    bgtMap[ind]=(bgtMap[ind]||0)+b;
     gmMap[ind]=(gmMap[ind]||0)+(c.gm||0);
     if(!custMap[ind]) custMap[ind]=[];
     custMap[ind].push({name:c.name_en, vol:v, projId:c.project_id});
   });
   const sorted = Object.entries(map).sort((a,b)=>b[1]-a[1]);
-  const total = sorted.reduce((s,[,v])=>s+v,0);
+  const total    = sorted.reduce((s,[,v])=>s+v,0);
+  const totalBgt = sorted.reduce((s,[k])=>s+(bgtMap[k]||0),0);
   const totalGMbiz = sorted.reduce((s,[k])=>s+(gmMap[k]||0),0);
+  const bizDiff = total - totalBgt;
+  const bizDiffPct = totalBgt ? (bizDiff/totalBgt*100) : 0;
   document.getElementById('biz-count').textContent = sorted.length;
   document.getElementById('biz-total').textContent = fmtN(total);
+  document.getElementById('biz-bgt-total').textContent = fmtN(totalBgt);
+  document.getElementById('biz-vs-bgt').textContent = (bizDiff>=0?'+':'')+fmtN(bizDiff);
+  const bvp = document.getElementById('biz-vs-bgt-pct');
+  bvp.textContent = (bizDiffPct>=0?'+':'')+bizDiffPct.toFixed(1)+'%';
+  bvp.className = 'kpi-diff '+(bizDiffPct>=0?'pos':'neg');
   if(sorted[0]){ document.getElementById('biz-top').textContent=sorted[0][0]; document.getElementById('biz-top-pct').textContent=(sorted[0][1]/total*100).toFixed(1)+'% of total'; }
 
   const labels=sorted.map(([k])=>k), vals=sorted.map(([,v])=>v);
@@ -642,7 +705,11 @@ function renderBusiness() {
       <div class="rank-bar-wrap">
         <div class="rank-name"><span>${name}</span><span class="rank-pct">${(vol/total*100).toFixed(1)}%</span></div>
         <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${(vol/maxVal*100).toFixed(0)}%;background:${COLORS[i%COLORS.length]}"></div></div>
-        <div class="rank-vol">${fmtN(vol,1)} MMBtu (${topCusts.length} ลูกค้า) &nbsp;|&nbsp; <span style="color:${(gmMap[name]||0)>=0?'#16a34a':'#dc2626'};font-weight:600">GM: ${fmtN(gmMap[name]||0,1)} Baht</span></div>
+        <div class="rank-vol">
+          Act: <b>${fmtN(vol,1)}</b> MMBtu &nbsp;|&nbsp; Bgt: ${fmtN(bgtMap[name]||0,1)} MMBtu
+          &nbsp;<span style="background:${vol>=(bgtMap[name]||0)?'#dcfce7':'#fee2e2'};color:${vol>=(bgtMap[name]||0)?'#16a34a':'#dc2626'};padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700">${vol-(bgtMap[name]||0)>=0?'+':''}${bgtMap[name]?(((vol-(bgtMap[name]||0))/(bgtMap[name]||1))*100).toFixed(1)+'%':'—'}</span>
+          &nbsp;|&nbsp; ${topCusts.length} ลูกค้า &nbsp;|&nbsp; <span style="color:${(gmMap[name]||0)>=0?'#16a34a':'#dc2626'};font-weight:600">GM: ${fmtN(gmMap[name]||0,1)} Baht</span>
+        </div>
         ${topHtml}
       </div>
     </div>`;
@@ -780,6 +847,227 @@ function renderPrice() {
   });
 }
 
+
+// ── TAB 6: ANALYSIS ──
+function renderAnalysis() {
+  const base = getBase();
+  if(!base.length){ document.getElementById('an-exec').innerHTML='<div class="an-section">ไม่มีข้อมูล</div>'; return; }
+
+  // ── Aggregates ──
+  let actTot=0, bgtTot=0, may25Tot=0, gmTot=0, volWithMargin=0, marginSum=0;
+  const ieSco={}, bizMargin={}, bizVol={}, bizGM={};
+
+  base.forEach(c=>{
+    const act=c.act26.May||0, bgt=c.bgt26.May||0, y25=c.act25.May||0, gm=c.gm||0;
+    actTot+=act; bgtTot+=bgt; may25Tot+=y25; gmTot+=gm;
+    if(c.margin!=null&&act>0){ marginSum+=c.margin; volWithMargin++; }
+    const ie=c.ie;
+    if(!ieSco[ie]) ieSco[ie]={act:0,bgt:0,gm:0,n:0};
+    ieSco[ie].act+=act; ieSco[ie].bgt+=bgt; ieSco[ie].gm+=gm; ieSco[ie].n++;
+    const ind=c.industry.trim()||'Other';
+    if(!bizMargin[ind]) bizMargin[ind]={sum:0,n:0};
+    if(!bizVol[ind]) bizVol[ind]=0;
+    if(!bizGM[ind]) bizGM[ind]=0;
+    if(c.margin!=null&&act>0){ bizMargin[ind].sum+=c.margin; bizMargin[ind].n++; }
+    bizVol[ind]+=act; bizGM[ind]+=gm;
+  });
+
+  const diffTot=actTot-bgtTot, diffPct=bgtTot?(diffTot/bgtTot*100):0;
+  const yoyDiff=actTot-may25Tot, yoyPct=may25Tot?(yoyDiff/may25Tot*100):0;
+  const avgMargin=volWithMargin?marginSum/volWithMargin:0;
+
+  // ── 1. Executive Summary ──
+  function trafficLight(pct){ return pct>=0?'badge-green':pct>=-5?'badge-yellow':'badge-red'; }
+  document.getElementById('an-exec').innerHTML = `
+    <div class="an-section">
+      <div class="an-title">📋 Executive Summary — May 2026</div>
+      <div class="an-grid3" style="margin-bottom:10px">
+        <div class="exec-card">
+          <div class="exec-label">Total Volume Act</div>
+          <div class="exec-val">${fmtN(actTot)}</div>
+          <div class="exec-sub">MMBtu</div>
+        </div>
+        <div class="exec-card">
+          <div class="exec-label">vs Budget</div>
+          <div class="exec-val">${diffTot>=0?'+':''}${fmtN(diffTot)} <span class="exec-badge ${trafficLight(diffPct)}">${diffPct>=0?'+':''}${diffPct.toFixed(1)}%</span></div>
+          <div class="exec-sub">Budget: ${fmtN(bgtTot)} MMBtu</div>
+        </div>
+        <div class="exec-card">
+          <div class="exec-label">vs Last Year (YoY)</div>
+          <div class="exec-val">${yoyDiff>=0?'+':''}${fmtN(yoyDiff)} <span class="exec-badge ${trafficLight(yoyPct)}">${yoyPct>=0?'+':''}${yoyPct.toFixed(1)}%</span></div>
+          <div class="exec-sub">May 25: ${fmtN(may25Tot)} MMBtu</div>
+        </div>
+      </div>
+      <div class="an-grid3">
+        <div class="exec-card">
+          <div class="exec-label">Total GM (Baht)</div>
+          <div class="exec-val" style="color:#16a34a;font-size:16px">${fmtN(gmTot)}</div>
+          <div class="exec-sub">Baht — May 2026</div>
+        </div>
+        <div class="exec-card">
+          <div class="exec-label">Avg Margin</div>
+          <div class="exec-val" style="color:#16a34a;font-size:16px">${avgMargin.toFixed(1)}</div>
+          <div class="exec-sub">Baht/MMBtu</div>
+        </div>
+        <div class="exec-card">
+          <div class="exec-label">Customers</div>
+          <div class="exec-val">${base.length}</div>
+          <div class="exec-sub">${base.filter(c=>c.company==='PTT').length} PTT NGD &nbsp;|&nbsp; ${base.filter(c=>c.company==='Amata').length} Amata</div>
+        </div>
+      </div>
+    </div>`;
+
+  // ── 2. At-Risk Customers (Act < Budget by >20%) ──
+  const atRisk = base.filter(c=>{
+    const act=c.act26.May||0, bgt=c.bgt26.May||0;
+    return bgt>0 && act<bgt && (bgt-act)/bgt>0.2;
+  }).sort((a,b)=>{ const ba=(b.bgt26.May||0),bb=(a.bgt26.May||0); return (b.bgt26.May-b.act26.May)-(a.bgt26.May-a.act26.May); }).slice(0,15);
+
+  document.getElementById('an-risk').innerHTML = `
+    <div class="an-section" style="height:100%">
+      <div class="an-title">⚠️ At-Risk Customers <span style="font-size:10px;font-weight:400;color:#64748b">(Act ต่ำกว่า Budget >20%)</span></div>
+      <div style="max-height:320px;overflow-y:auto">
+        <table class="risk-table">
+          <thead><tr>
+            <th>บริษัท</th><th>IE</th>
+            <th style="text-align:right">Act May26</th>
+            <th style="text-align:right">Bgt May26</th>
+            <th style="text-align:right">vs Bgt%</th>
+          </tr></thead>
+          <tbody>${atRisk.map(c=>{
+            const act=c.act26.May||0, bgt=c.bgt26.May||0;
+            const pct=((act-bgt)/bgt*100).toFixed(1);
+            return `<tr>
+              <td style="cursor:pointer;color:var(--primary)" onclick="switchTab('customers');setTimeout(()=>openModal('${c.project_id}'),300)">${c.name_en||c.name_th}</td>
+              <td>${c.ie}</td>
+              <td style="text-align:right">${fmtN(act,1)}</td>
+              <td style="text-align:right">${fmtN(bgt,1)}</td>
+              <td style="text-align:right;color:#dc2626;font-weight:700">${pct}%</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>
+      <div style="font-size:10px;color:#64748b;margin-top:6px">พบ ${atRisk.length} ราย (แสดง top 15 จาก gap สูงสุด) • คลิกชื่อเพื่อดูรายละเอียด</div>
+    </div>`;
+
+  // ── 3. GM Concentration ──
+  const custGM = base.filter(c=>c.gm>0).sort((a,b)=>(b.gm||0)-(a.gm||0));
+  const top10gm = custGM.slice(0,10).reduce((s,c)=>s+(c.gm||0),0);
+  const top20gm = custGM.slice(0,20).reduce((s,c)=>s+(c.gm||0),0);
+  const top5gm  = custGM.slice(0,5).reduce((s,c)=>s+(c.gm||0),0);
+  const gmPos   = base.filter(c=>c.gm>0).reduce((s,c)=>s+(c.gm||0),0);
+  const p5  = gmPos?(top5gm/gmPos*100):0;
+  const p10 = gmPos?(top10gm/gmPos*100):0;
+  const p20 = gmPos?(top20gm/gmPos*100):0;
+
+  document.getElementById('an-conc').innerHTML = `
+    <div class="an-section" style="height:100%">
+      <div class="an-title">💎 GM Concentration</div>
+      <div style="font-size:11px;color:#64748b;margin-bottom:10px">GM รวม (Positive): ${fmtN(gmPos)} Baht จาก ${custGM.length} ลูกค้า</div>
+      ${[['Top 5 ลูกค้า',p5,'#1a3a5c'],['Top 10 ลูกค้า',p10,'#3b82f6'],['Top 20 ลูกค้า',p20,'#93c5fd']].map(([label,pct,color])=>`
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px">
+            <span>${label}</span><span style="font-weight:700">${pct.toFixed(1)}% ของ GM รวม</span>
+          </div>
+          <div class="conc-bar"><div class="conc-fill" style="width:${Math.min(pct,100)}%;background:${color}">${pct.toFixed(1)}%</div></div>
+        </div>`).join('')}
+      <div style="margin-top:12px;font-size:11px;font-weight:600;color:#64748b">Top 5 ลูกค้า GM สูงสุด:</div>
+      ${custGM.slice(0,5).map((c,i)=>`
+        <div class="yoy-item" style="cursor:pointer" onclick="switchTab('customers');setTimeout(()=>openModal('${c.project_id}'),300)">
+          <span class="margin-rank-num">${i+1}</span>
+          <span class="yoy-name" style="color:var(--primary)">${c.name_en||c.name_th}</span>
+          <span class="yoy-val" style="color:#16a34a">${fmtN(c.gm||0,1)} Baht</span>
+        </div>`).join('')}
+    </div>`;
+
+  // ── 6. YoY Winners & Losers ──
+  const withYoY = base.filter(c=>(c.act25.May||0)>0||(c.act26.May||0)>0);
+  const sorted_yoy = withYoY.map(c=>({...c, yoy:(c.act26.May||0)-(c.act25.May||0), yoyPct:(c.act25.May||0)?((c.act26.May||0)-(c.act25.May||0))/(c.act25.May||0)*100:null}));
+  const winners = sorted_yoy.filter(c=>c.yoy>0).sort((a,b)=>b.yoy-a.yoy).slice(0,8);
+  const losers  = sorted_yoy.filter(c=>c.yoy<0).sort((a,b)=>a.yoy-b.yoy).slice(0,8);
+
+  function yoyList(items, isWin){
+    return items.map((c,i)=>`
+      <div class="yoy-item" style="cursor:pointer" onclick="switchTab('customers');setTimeout(()=>openModal('${c.project_id}'),300)">
+        <span class="margin-rank-num" style="color:${isWin?'#16a34a':'#dc2626'}">${i+1}</span>
+        <span class="yoy-name" style="color:var(--primary)">${c.name_en||c.name_th}</span>
+        <span class="yoy-val" style="color:${isWin?'#16a34a':'#dc2626'}">${isWin?'+':''}${fmtN(c.yoy,1)}</span>
+      </div>`).join('');
+  }
+
+  document.getElementById('an-yoy-win').innerHTML = `
+    <div class="an-section"><div class="an-title">📈 YoY Winners (Act May26 vs May25)</div>${yoyList(winners,true)}</div>`;
+  document.getElementById('an-yoy-lose').innerHTML = `
+    <div class="an-section"><div class="an-title">📉 YoY Losers (Act May26 vs May25)</div>${yoyList(losers,false)}</div>`;
+
+  // ── 7. IE Area Health Scorecard ──
+  const ieSorted = Object.entries(ieSco).sort((a,b)=>b[1].act-a[1].act);
+  const ieTotal  = ieSorted.reduce((s,[,v])=>s+v.act,0);
+  document.getElementById('an-ie').innerHTML = `
+    <div class="an-section">
+      <div class="an-title">📍 IE Area Health Scorecard</div>
+      <div style="overflow-x:auto">
+        <table class="ie-score-table">
+          <thead><tr>
+            <th style="text-align:left">IE Area</th>
+            <th>ลูกค้า</th>
+            <th>Act May26<br><small>(MMBtu)</small></th>
+            <th>Bgt May26<br><small>(MMBtu)</small></th>
+            <th>vs Bgt%</th>
+            <th>GM<br><small>(Baht)</small></th>
+            <th>% of Vol</th>
+          </tr></thead>
+          <tbody>${ieSorted.map(([ie,d])=>{
+            const diff=d.bgt?(d.act-d.bgt)/d.bgt*100:null;
+            const isAmata=ie==='ACC'||ie==='ACR';
+            const diffColor=diff==null?'#64748b':diff>=0?'#16a34a':'#dc2626';
+            return `<tr>
+              <td><b style="color:${isAmata?'#7c3aed':'#1a3a5c'}">${ie}</b> <span style="font-size:9px;font-weight:400;color:#94a3b8">${IE_NAMES[ie]||''}</span></td>
+              <td>${d.n}</td>
+              <td>${fmtN(d.act,1)}</td>
+              <td>${fmtN(d.bgt,1)}</td>
+              <td style="color:${diffColor};font-weight:700">${diff!=null?(diff>=0?'+':'')+diff.toFixed(1)+'%':'—'}</td>
+              <td style="color:${d.gm>=0?'#16a34a':'#dc2626'};font-weight:600">${fmtN(d.gm,1)}</td>
+              <td>${ieTotal?(d.act/ieTotal*100).toFixed(1)+'%':'—'}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>
+    </div>`;
+
+  // ── 8. Business Type Margin Ranking ──
+  const bizRank = Object.entries(bizMargin).filter(([,v])=>v.n>0)
+    .map(([ind,v])=>({ind, avgMargin:v.sum/v.n, vol:bizVol[ind]||0, gm:bizGM[ind]||0, n:v.n}))
+    .sort((a,b)=>b.avgMargin-a.avgMargin);
+  const maxMarginVal = bizRank[0]?.avgMargin||1;
+
+  document.getElementById('an-margin-rank').innerHTML = `
+    <div class="an-section">
+      <div class="an-title">🏆 Business Type — Avg Margin Ranking (Baht/MMBtu)</div>
+      <div class="an-grid2">
+        <div>${bizRank.map((b,i)=>`
+          <div class="margin-rank-item">
+            <span class="margin-rank-num">${i+1}</span>
+            <span style="font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.ind}</span>
+            <div class="margin-rank-bar">
+              <div class="margin-rank-fill" style="width:${(b.avgMargin/maxMarginVal*100).toFixed(0)}%;background:${b.avgMargin>=0?'#16a34a':'#dc2626'}">${b.avgMargin.toFixed(1)}</div>
+            </div>
+            <span class="margin-rank-val" style="color:${b.avgMargin>=0?'#16a34a':'#dc2626'}">${b.avgMargin.toFixed(1)}</span>
+          </div>`).join('')}
+        </div>
+        <div style="font-size:11px">
+          <div style="font-weight:600;color:#64748b;margin-bottom:8px">GM รวม (Baht) แยก Industry</div>
+          ${bizRank.map((b,i)=>`
+            <div class="yoy-item">
+              <span class="margin-rank-num" style="color:#64748b">${i+1}</span>
+              <span class="yoy-name">${b.ind} <span style="color:#94a3b8">(${b.n} ราย)</span></span>
+              <span class="yoy-val" style="color:${b.gm>=0?'#16a34a':'#dc2626'}">${fmtN(b.gm,1)}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
 // ── MODAL ──
 function openModal(projId) {
   const c = RAW.find(x=>x.project_id===projId);
@@ -840,6 +1128,7 @@ function switchTab(id) {
   else if(id==='ie') renderIE();
   else if(id==='fuel') renderFuel();
   else if(id==='price') renderPrice();
+  else if(id==='analysis') renderAnalysis();
 }
 
 // ── INIT ──
