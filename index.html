@@ -183,6 +183,7 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   <button class="tab-btn" onclick="switchTab('business')">🏭 Business Type</button>
   <button class="tab-btn" onclick="switchTab('ie')">📍 IE Area</button>
   <button class="tab-btn" onclick="switchTab('fuel')">⛽ Fuel Type</button>
+  <button class="tab-btn" onclick="switchTab('price')">💰 Selling Price</button>
 </div>
 
 <!-- TAB 1: CUSTOMERS -->
@@ -297,6 +298,143 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   <div class="chart-card">
     <h3>Actual May 26 vs Budget May 26 — by Fuel</h3>
     <div class="chart-wrap h200"><canvas id="fuel-vs-bgt"></canvas></div>
+  </div>
+</div>
+
+
+<div class="tab-content" id="tab-price">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:4px 0 12px">
+
+    <!-- PTT NGD -->
+    <div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden">
+      <div style="background:#1a3a5c;color:#fff;padding:12px 16px;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center">
+        <span>🏢 PTT NGD</span>
+        <span style="font-size:11px;opacity:.8">May 2026</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead>
+          <tr style="background:#f1f5f9;color:#64748b;font-size:10px;text-transform:uppercase">
+            <th style="padding:8px 10px;text-align:center">Block</th>
+            <th style="padding:8px 10px;text-align:right">Selling Price<br><span style="font-weight:400">(Baht/MMBtu)</span></th>
+            <th style="padding:8px 10px;text-align:right">vs Block 1</th>
+            <th style="padding:8px 10px;text-align:right">APP (NG Cost)<br><span style="font-weight:400">(Baht/MMBtu)</span></th>
+            <th style="padding:8px 10px;text-align:right">Gross Margin<br><span style="font-weight:400">(Baht/MMBtu)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#1a3a5c">Block 1</td>
+        <td style="text-align:right;font-weight:700">726.11</td>
+        <td style="text-align:right;color:#64748b;font-weight:600">—</td>
+        <td style="text-align:right;color:#64748b">394.4442</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">331.67</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#1a3a5c">Block 2</td>
+        <td style="text-align:right;font-weight:700">698.91</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-3.75%</td>
+        <td style="text-align:right;color:#64748b">394.4442</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">304.47</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#1a3a5c">Block 3</td>
+        <td style="text-align:right;font-weight:700">684.27</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-5.76%</td>
+        <td style="text-align:right;color:#64748b">394.4442</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">289.83</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#1a3a5c">Block 4</td>
+        <td style="text-align:right;font-weight:700">673.81</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-7.20%</td>
+        <td style="text-align:right;color:#64748b">394.4442</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">279.37</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#1a3a5c">Block 5</td>
+        <td style="text-align:right;font-weight:700">663.35</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-8.64%</td>
+        <td style="text-align:right;color:#64748b">394.4442</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">268.91</td>
+      </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:#f8fafc;border-top:2px solid #e2e8f0">
+            <td colspan="2" style="padding:8px 10px;font-size:10px;color:#64748b">APP = 394.4442 Baht/MMBtu</td>
+            <td colspan="3" style="padding:8px 10px;font-size:10px;color:#64748b;text-align:right">Block 1 Margin = <b style="color:#16a34a">331.67</b> | Block 5 Margin = <b style="color:#16a34a">268.91</b> Baht/MMBtu</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Amata NGD -->
+    <div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden">
+      <div style="background:#7c3aed;color:#fff;padding:12px 16px;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center">
+        <span>🏢 Amata NGD</span>
+        <span style="font-size:11px;opacity:.8">May 2026</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead>
+          <tr style="background:#f5f3ff;color:#64748b;font-size:10px;text-transform:uppercase">
+            <th style="padding:8px 10px;text-align:center">Block</th>
+            <th style="padding:8px 10px;text-align:right">Selling Price<br><span style="font-weight:400">(Baht/MMBtu)</span></th>
+            <th style="padding:8px 10px;text-align:right">vs Block 1</th>
+            <th style="padding:8px 10px;text-align:right">APP (NG Cost)<br><span style="font-weight:400">(Baht/MMBtu)</span></th>
+            <th style="padding:8px 10px;text-align:right">Gross Margin<br><span style="font-weight:400">(Baht/MMBtu)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#7c3aed">Block 1</td>
+        <td style="text-align:right;font-weight:700">730.25</td>
+        <td style="text-align:right;color:#64748b;font-weight:600">—</td>
+        <td style="text-align:right;color:#64748b">400.1523</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">330.10</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#7c3aed">Block 2</td>
+        <td style="text-align:right;font-weight:700">703.06</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-3.72%</td>
+        <td style="text-align:right;color:#64748b">400.1523</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">302.91</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#7c3aed">Block 3</td>
+        <td style="text-align:right;font-weight:700">688.41</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-5.73%</td>
+        <td style="text-align:right;color:#64748b">400.1523</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">288.26</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#7c3aed">Block 4</td>
+        <td style="text-align:right;font-weight:700">677.95</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-7.16%</td>
+        <td style="text-align:right;color:#64748b">400.1523</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">277.80</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#7c3aed">Block 5</td>
+        <td style="text-align:right;font-weight:700">667.49</td>
+        <td style="text-align:right;color:#dc2626;font-weight:600">-8.59%</td>
+        <td style="text-align:right;color:#64748b">400.1523</td>
+        <td style="text-align:right;font-weight:700;color:#16a34a">267.34</td>
+      </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:#f8fafc;border-top:2px solid #e2e8f0">
+            <td colspan="2" style="padding:8px 10px;font-size:10px;color:#64748b">APP = 400.1523 Baht/MMBtu</td>
+            <td colspan="3" style="padding:8px 10px;font-size:10px;color:#64748b;text-align:right">Block 1 Margin = <b style="color:#16a34a">330.10</b> | Block 5 Margin = <b style="color:#16a34a">267.34</b> Baht/MMBtu</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Bar chart comparison -->
+  <div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:16px;margin-top:4px">
+    <div style="font-weight:700;font-size:13px;color:var(--text);margin-bottom:12px">Block Price vs NG Cost — PTT NGD vs Amata NGD</div>
+    <div style="height:220px"><canvas id="price-chart"></canvas></div>
   </div>
 </div>
 
@@ -612,6 +750,36 @@ function renderFuel() {
   });
 }
 
+
+// ── TAB 5: SELLING PRICE ──
+let priceChart = null;
+function renderPrice() {
+  const pttBlocks   = [726.11, 698.91, 684.27, 673.81, 663.35];
+  const amataBlocks = [730.25, 703.06, 688.41, 677.95, 667.49];
+  const pttApp      = 394.4442;
+  const amataApp    = 400.1523;
+  const labels = ['Block 1','Block 2','Block 3','Block 4','Block 5'];
+
+  if(priceChart){ priceChart.destroy(); priceChart=null; }
+  priceChart = new Chart(document.getElementById('price-chart').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'PTT NGD Selling Price',data:pttBlocks,backgroundColor:'#1a3a5c',borderRadius:3},
+        {label:'Amata NGD Selling Price',data:amataBlocks,backgroundColor:'#7c3aed',borderRadius:3},
+        {label:'PTT NGD APP',data:Array(5).fill(pttApp),type:'line',borderColor:'#3b82f6',borderDash:[5,3],borderWidth:2,pointRadius:0,fill:false},
+        {label:'Amata NGD APP',data:Array(5).fill(amataApp),type:'line',borderColor:'#a855f7',borderDash:[5,3],borderWidth:2,pointRadius:0,fill:false}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:10}}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y!=null?c.parsed.y.toFixed(2):'—'} B/MMBtu`}}},
+      scales:{y:{ticks:{font:{size:9},callback:v=>v.toFixed(0)},min:350}}
+    }
+  });
+}
+
 // ── MODAL ──
 function openModal(projId) {
   const c = RAW.find(x=>x.project_id===projId);
@@ -671,6 +839,7 @@ function switchTab(id) {
   if(id==='business') renderBusiness();
   else if(id==='ie') renderIE();
   else if(id==='fuel') renderFuel();
+  else if(id==='price') renderPrice();
 }
 
 // ── INIT ──
