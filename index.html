@@ -585,7 +585,9 @@ function applyFilters() {
   const totalGM = filtered.reduce((s,c)=>s+(c.gm||0),0);
   const mCust = filtered.filter(c=>c.margin!=null&&(c.act26.May||0)>0);
   const avgMargin = mCust.length ? mCust.reduce((s,c)=>s+c.margin,0)/mCust.length : 0;
-  document.getElementById('k-total').textContent = filtered.length;
+  const connFiltered=filtered.filter(c=>c.connect===1);
+  const uniqueConnected=new Set(connFiltered.map(c=>c.customer_id)).size;
+  document.getElementById('k-total').textContent = uniqueConnected;
   document.getElementById('k-may26').textContent = fmtN(may26);
   document.getElementById('k-bmay26').textContent = fmtN(bgt26);
   document.getElementById('k-may25').textContent = fmtN(may25);
