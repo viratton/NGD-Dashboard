@@ -9,7 +9,7 @@
 <style>
 :root{--primary:#1a3a5c;--accent:#e8a020;--ptt:#1a3a5c;--amata:#7c3aed;--lpg:#3b82f6;--fo:#ef4444;--cogen:#22c55e;--bg:#f0f4f8;--card:#ffffff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--hover:#f1f5f9;--green:#16a34a;--red:#dc2626;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px;min-height:100vh;}
+body{font-family:'PTT 45 Pride','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px;min-height:100vh;}
 
 /* HEADER */
 .header{background:var(--primary);color:white;padding:12px 14px;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
@@ -239,9 +239,9 @@ tr:hover td{background:var(--hover);cursor:pointer;}
     <div class="kpi"><div class="kpi-label">Bgt Jul 26</div><div class="kpi-value" id="k-bmay26">—</div><div class="kpi-sub">MMBtu</div></div>
     <div class="kpi"><div class="kpi-label">vs Budget</div><div class="kpi-value" id="k-diff">—</div><div class="kpi-diff" id="k-diff-pct"></div></div>
     <div class="kpi"><div class="kpi-label">Act Jul 25</div><div class="kpi-value" id="k-may25">—</div><div class="kpi-sub">MMBtu (YoY)</div></div>
-  </div>
     <div class="kpi kpi-green"><div class="kpi-label">GM รวม</div><div class="kpi-value" id="k-gm">—</div><div class="kpi-sub">Baht Jul 26</div></div>
     <div class="kpi kpi-green"><div class="kpi-label">Margin เฉลี่ย</div><div class="kpi-value" id="k-margin">—</div><div class="kpi-sub">Baht/MMBtu</div></div>
+  </div>
 
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
@@ -260,11 +260,12 @@ tr:hover td{background:var(--hover);cursor:pointer;}
         <th onclick="sortBy('name_en')">บริษัท ↕</th>
         <th onclick="sortBy('ie')">IE ↕</th>
         <th onclick="sortBy('fuel')">Fuel ↕</th>
+        <th onclick="sortBy('industry')">Business Type ↕</th>
         <th onclick="sortBy('sl')">SL ↕</th>
-        <th class="num" onclick="sortBy('may26')">Act May26 ↕</th>
-        <th class="num" onclick="sortBy('bgt_may26')">Bgt May26 ↕</th>
+        <th class="num" onclick="sortBy('may26')">Act Jul26 ↕</th>
+        <th class="num" onclick="sortBy('bgt_may26')">Bgt Jul26 ↕</th>
         <th class="num" onclick="sortBy('vs_bgt')">vs Bgt ↕</th>
-        <th class="num" onclick="sortBy('may25')">Act May25 ↕</th>
+        <th class="num" onclick="sortBy('may25')">Act Jul25 ↕</th>
         <th class="num" onclick="sortBy('margin')">Margin<br><small>(B/MMBtu)</small></th>
         <th class="num" onclick="sortBy('gm')">GM<br><small>(Baht)</small></th>
       </tr></thead>
@@ -283,14 +284,14 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   <div class="tab-toolbar"><button class="export-btn" onclick="exportTabPDF('tab-business','Business_Type')">📄 Export PDF</button></div>
   <div class="kpi-bar">
     <div class="kpi blue"><div class="kpi-label">อุตสาหกรรม</div><div class="kpi-value" id="biz-count">—</div><div class="kpi-sub">types</div></div>
-    <div class="kpi"><div class="kpi-label">Total Act May 26</div><div class="kpi-value" id="biz-total">—</div><div class="kpi-sub">MMBtu</div></div>
-    <div class="kpi"><div class="kpi-label">Total Bgt May 26</div><div class="kpi-value" id="biz-bgt-total">—</div><div class="kpi-sub">MMBtu</div></div>
+    <div class="kpi"><div class="kpi-label">Total Act Jul 26</div><div class="kpi-value" id="biz-total">—</div><div class="kpi-sub">MMBtu</div></div>
+    <div class="kpi"><div class="kpi-label">Total Bgt Jul 26</div><div class="kpi-value" id="biz-bgt-total">—</div><div class="kpi-sub">MMBtu</div></div>
     <div class="kpi"><div class="kpi-label">vs Budget</div><div class="kpi-value" id="biz-vs-bgt">—</div><div class="kpi-diff" id="biz-vs-bgt-pct"></div></div>
     <div class="kpi green"><div class="kpi-label">Top Industry</div><div class="kpi-value" id="biz-top" style="font-size:12px">—</div><div class="kpi-sub" id="biz-top-pct"></div></div>
   </div>
   <div class="grid2">
     <div class="chart-card">
-      <h3>สัดส่วน % (Actual May 26)</h3>
+      <h3>สัดส่วน % (Actual Jul 26)</h3>
       <div class="chart-wrap h200"><canvas id="biz-donut"></canvas></div>
     </div>
     <div class="chart-card">
@@ -299,7 +300,7 @@ tr:hover td{background:var(--hover);cursor:pointer;}
     </div>
   </div>
   <div class="chart-card">
-    <h3>Ranking — Actual May 26</h3>
+    <h3>Ranking — Actual Jul 26</h3>
     <div class="rank-list" id="biz-rank"></div>
   </div>
 </div>
@@ -309,11 +310,11 @@ tr:hover td{background:var(--hover);cursor:pointer;}
   <div class="tab-toolbar"><button class="export-btn" onclick="exportTabPDF('tab-ie','IE_Area')">📄 Export PDF</button></div>
   <div class="kpi-bar">
     <div class="kpi blue"><div class="kpi-label">นิคมอุตสาหกรรม</div><div class="kpi-value" id="ie-count">—</div><div class="kpi-sub">IE areas</div></div>
-    <div class="kpi"><div class="kpi-label">Total Act May 26</div><div class="kpi-value" id="ie-total">—</div><div class="kpi-sub">MMBtu</div></div>
+    <div class="kpi"><div class="kpi-label">Total Act Jul 26</div><div class="kpi-value" id="ie-total">—</div><div class="kpi-sub">MMBtu</div></div>
     <div class="kpi green"><div class="kpi-label">Top IE</div><div class="kpi-value" id="ie-top" style="font-size:12px">—</div><div class="kpi-sub" id="ie-top-pct"></div></div>
   </div>
   <div class="chart-card">
-    <h3>Volume by IE Area — Actual May 26 (MMBtu)</h3>
+    <h3>Volume by IE Area — Actual Jul 26 (MMBtu)</h3>
     <div class="chart-wrap h280"><canvas id="ie-bar"></canvas></div>
   </div>
   <div class="chart-card">
@@ -326,13 +327,13 @@ tr:hover td{background:var(--hover);cursor:pointer;}
 <div class="tab-content" id="tab-fuel">
   <div class="tab-toolbar"><button class="export-btn" onclick="exportTabPDF('tab-fuel','Fuel_Type')">📄 Export PDF</button></div>
   <div class="kpi-bar">
-    <div class="kpi blue"><div class="kpi-label">LPG — Act May 26</div><div class="kpi-value" id="fuel-lpg">—</div><div class="kpi-sub" id="fuel-lpg-pct"></div><div style="font-size:10px;color:var(--muted);margin-top:4px">GM (Baht)</div><div id="fuel-lpg-gm" style="font-size:12px;font-weight:700">—</div></div>
-    <div class="kpi red"><div class="kpi-label">FO — Act May 26</div><div class="kpi-value" id="fuel-fo">—</div><div class="kpi-sub" id="fuel-fo-pct"></div><div style="font-size:10px;color:var(--muted);margin-top:4px">GM (Baht)</div><div id="fuel-fo-gm" style="font-size:12px;font-weight:700">—</div></div>
-    <div class="kpi green"><div class="kpi-label">COGEN — Act May 26</div><div class="kpi-value" id="fuel-cogen">—</div><div class="kpi-sub" id="fuel-cogen-pct"></div><div style="font-size:10px;color:var(--muted);margin-top:4px">GM (Baht)</div><div id="fuel-cogen-gm" style="font-size:12px;font-weight:700">—</div></div>
+    <div class="kpi blue"><div class="kpi-label">LPG — Act Jul 26</div><div class="kpi-value" id="fuel-lpg">—</div><div class="kpi-sub" id="fuel-lpg-pct"></div><div style="font-size:10px;color:var(--muted);margin-top:4px">GM (Baht)</div><div id="fuel-lpg-gm" style="font-size:12px;font-weight:700">—</div></div>
+    <div class="kpi red"><div class="kpi-label">FO — Act Jul 26</div><div class="kpi-value" id="fuel-fo">—</div><div class="kpi-sub" id="fuel-fo-pct"></div><div style="font-size:10px;color:var(--muted);margin-top:4px">GM (Baht)</div><div id="fuel-fo-gm" style="font-size:12px;font-weight:700">—</div></div>
+    <div class="kpi green"><div class="kpi-label">COGEN — Act Jul 26</div><div class="kpi-value" id="fuel-cogen">—</div><div class="kpi-sub" id="fuel-cogen-pct"></div><div style="font-size:10px;color:var(--muted);margin-top:4px">GM (Baht)</div><div id="fuel-cogen-gm" style="font-size:12px;font-weight:700">—</div></div>
   </div>
   <div class="grid2">
     <div class="chart-card">
-      <h3>สัดส่วน Fuel Type % (Act May 26)</h3>
+      <h3>สัดส่วน Fuel Type % (Act Jul 26)</h3>
       <div class="chart-wrap h200"><canvas id="fuel-donut"></canvas></div>
       <div class="fuel-legend">
         <div class="fuel-dot"><span style="background:#3b82f6"></span>LPG</div>
@@ -341,12 +342,12 @@ tr:hover td{background:var(--hover);cursor:pointer;}
       </div>
     </div>
     <div class="chart-card">
-      <h3>Actual May 26 vs May 25 (MMBtu)</h3>
+      <h3>Actual Jul 26 vs Jul 25 (MMBtu)</h3>
       <div class="chart-wrap h200"><canvas id="fuel-compare"></canvas></div>
     </div>
   </div>
   <div class="chart-card">
-    <h3>Actual May 26 vs Budget May 26 — by Fuel</h3>
+    <h3>Actual Jul 26 vs Budget Jul 26 — by Fuel</h3>
     <div class="chart-wrap h200"><canvas id="fuel-vs-bgt"></canvas></div>
   </div>
 </div>
@@ -642,6 +643,7 @@ function customerRowHtml(c, clickable){
       <td><div class="name-en">${c.name_en}</div><div class="name-th">${c.name_th||''}</div></td>
       <td>${c.ie}${c.company==='Amata'?'<span style="color:#7c3aed;font-size:9px;display:block">Amata</span>':''}</td>
       <td>${fuelBadge(c.fuel)}</td>
+      <td style="font-size:12px;color:var(--muted)">${c.industry?c.industry.trim():'-'}</td>
       <td>${c.sl}</td>
       <td class="num">${fmtN(may26)}</td>
       <td class="num">${fmtN(bgt26)}</td>
@@ -705,7 +707,7 @@ function renderBusiness() {
 
   bizBar = new Chart(document.getElementById('biz-bar').getContext('2d'),{
     type:'bar',
-    data:{labels,datasets:[{label:'Act May 26',data:vals,backgroundColor:COLORS,borderRadius:3}]},
+    data:{labels,datasets:[{label:'Act Jul 26',data:vals,backgroundColor:COLORS,borderRadius:3}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9},callback:v=>fmtN(v)}},y:{ticks:{font:{size:9}}}}}
   });
 
@@ -758,7 +760,7 @@ function renderIE() {
   if(ieBar){ ieBar.destroy(); ieBar=null; }
   ieBar = new Chart(document.getElementById('ie-bar').getContext('2d'),{
     type:'bar',
-    data:{labels,datasets:[{label:'Act May 26 (MMBtu)',data:vals,backgroundColor:bgColors,borderRadius:3}]},
+    data:{labels,datasets:[{label:'Act Jul 26 (MMBtu)',data:vals,backgroundColor:bgColors,borderRadius:3}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${fmtN(c.parsed,1)} MMBtu (${(c.parsed/total*100).toFixed(1)}%)`}}},scales:{x:{ticks:{font:{size:9},callback:v=>fmtN(v)}},y:{ticks:{font:{size:9}}}}}
   });
 
@@ -819,8 +821,8 @@ function renderFuel() {
   fuelCompare = new Chart(document.getElementById('fuel-compare').getContext('2d'),{
     type:'bar',
     data:{labels:fuels,datasets:[
-      {label:'Act May 25',data:fuels.map(f=>fuelAct25[f]),backgroundColor:'rgba(100,116,139,0.5)',borderRadius:3},
-      {label:'Act May 26',data:fuels.map(f=>fuelAct26[f]),backgroundColor:fuels.map(f=>fuelColors[f]),borderRadius:3}
+      {label:'Act Jul 25',data:fuels.map(f=>fuelAct25[f]),backgroundColor:'rgba(100,116,139,0.5)',borderRadius:3},
+      {label:'Act Jul 26',data:fuels.map(f=>fuelAct26[f]),backgroundColor:fuels.map(f=>fuelColors[f]),borderRadius:3}
     ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{y:{ticks:{font:{size:9},callback:v=>fmtN(v)}}}}
   });
@@ -829,8 +831,8 @@ function renderFuel() {
   fuelVsBgt = new Chart(document.getElementById('fuel-vs-bgt').getContext('2d'),{
     type:'bar',
     data:{labels:fuels,datasets:[
-      {label:'Budget May 26',data:fuels.map(f=>fuelBgt26[f]),backgroundColor:'rgba(234,179,8,0.5)',borderRadius:3},
-      {label:'Actual May 26',data:fuels.map(f=>fuelAct26[f]),backgroundColor:fuels.map(f=>fuelColors[f]),borderRadius:3}
+      {label:'Budget Jul 26',data:fuels.map(f=>fuelBgt26[f]),backgroundColor:'rgba(234,179,8,0.5)',borderRadius:3},
+      {label:'Actual Jul 26',data:fuels.map(f=>fuelAct26[f]),backgroundColor:fuels.map(f=>fuelColors[f]),borderRadius:3}
     ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{y:{ticks:{font:{size:9},callback:v=>fmtN(v)}}}}
   });
@@ -914,7 +916,7 @@ function renderAnalysis() {
         <div class="exec-card">
           <div class="exec-label">vs Last Year (YoY)</div>
           <div class="exec-val">${yoyDiff>=0?'+':''}${fmtN(yoyDiff)} <span class="exec-badge ${trafficLight(yoyPct)}">${yoyPct>=0?'+':''}${yoyPct.toFixed(1)}%</span></div>
-          <div class="exec-sub">May 25: ${fmtN(may25Tot)} MMBtu</div>
+          <div class="exec-sub">Jul 25: ${fmtN(may25Tot)} MMBtu</div>
         </div>
       </div>
       <div class="an-grid3">
@@ -949,8 +951,8 @@ function renderAnalysis() {
         <table class="risk-table">
           <thead><tr>
             <th>บริษัท</th><th>IE</th>
-            <th style="text-align:right">Act May26</th>
-            <th style="text-align:right">Bgt May26</th>
+            <th style="text-align:right">Act Jul26</th>
+            <th style="text-align:right">Bgt Jul26</th>
             <th style="text-align:right">vs Bgt%</th>
           </tr></thead>
           <tbody>${atRisk.map(c=>{
@@ -1015,9 +1017,9 @@ function renderAnalysis() {
   }
 
   document.getElementById('an-yoy-win').innerHTML = `
-    <div class="an-section"><div class="an-title">📈 YoY Winners (Act May26 vs May25)</div>${yoyList(winners,true)}</div>`;
+    <div class="an-section"><div class="an-title">📈 YoY Winners (Act Jul26 vs Jul25)</div>${yoyList(winners,true)}</div>`;
   document.getElementById('an-yoy-lose').innerHTML = `
-    <div class="an-section"><div class="an-title">📉 YoY Losers (Act May26 vs May25)</div>${yoyList(losers,false)}</div>`;
+    <div class="an-section"><div class="an-title">📉 YoY Losers (Act Jul26 vs Jul25)</div>${yoyList(losers,false)}</div>`;
 
   // ── 7. IE Area Health Scorecard ──
   const ieSorted = Object.entries(ieSco).sort((a,b)=>b[1].act-a[1].act);
@@ -1030,8 +1032,8 @@ function renderAnalysis() {
           <thead><tr>
             <th style="text-align:left">IE Area</th>
             <th>ลูกค้า</th>
-            <th>Act May26<br><small>(MMBtu)</small></th>
-            <th>Bgt May26<br><small>(MMBtu)</small></th>
+            <th>Act Jul26<br><small>(MMBtu)</small></th>
+            <th>Bgt Jul26<br><small>(MMBtu)</small></th>
             <th>vs Bgt%</th>
             <th>GM<br><small>(Baht)</small></th>
             <th>% of Vol</th>
@@ -1111,7 +1113,7 @@ function openModal(projId) {
   document.getElementById('modal-gm-row').innerHTML = c.gm!=null ? `<div class="${c.gm>=0?'gm-bar':'gm-bar neg'}"><div><div class="gm-title">Gross Margin — Jul 2026</div><div class="${c.gm>=0?'gm-val':'gm-val neg'}">${fmtN(c.gm)} <span class="gm-unit">Baht</span></div></div><div style="text-align:right"><div class="gm-title">per MMBtu</div><div class="${c.margin>=0?'gm-unit-val':'gm-unit-val neg'}">${c.margin!=null?c.margin.toFixed(1):'—'} <span class="gm-unit">B/MMBtu</span></div></div></div>` : ''
 
   document.getElementById('modal-vs').innerHTML = `
-    <span class="vs-label">Actual May 26 vs Budget May 26</span>
+    <span class="vs-label">Actual Jul 26 vs Budget Jul 26</span>
     <span class="vs-val ${diff!==null&&diff>=0?'pos':'neg'}">${diff!==null?(dSign+diff.toFixed(1)+'%'):'N/A'}</span>`;
 
   document.getElementById('modal-info').innerHTML = `
